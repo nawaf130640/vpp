@@ -1,0 +1,26 @@
+{
+  "name": "vpp",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+
+  // Runs once, automatically, right after the Codespace is built:
+  // install uv, then create the .venv with all dependencies.
+  "postCreateCommand": "pip install uv && uv sync --extra dev",
+
+  // Expose the FastAPI port so Codespaces offers to open it in a browser.
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "VPP API", "onAutoForward": "notify" }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": ".venv/bin/python"
+      }
+    }
+  }
+}

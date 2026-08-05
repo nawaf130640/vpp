@@ -1,0 +1,24 @@
+# Master configuration for the VPP prototype.
+# Anything that might change between machines or experiments lives here,
+# never hard-coded in Python. The cloud GPU box overrides `device` to "cuda".
+
+app:
+  name: "vpp"
+  log_level: "INFO"        # DEBUG | INFO | WARNING | ERROR
+
+device: "cpu"              # "cpu" on laptop/Codespaces, "cuda" on the GPU box
+
+paths:
+  uploads: "data/uploads"      # incoming videos + product PNGs
+  work: "data/work"            # per-job scratch (extracted frames, etc.)
+  outputs: "data/outputs"      # finished videos
+
+# Which implementation backs each model contract. For Phase 0–3 every service
+# resolves to its "fake" stub so the whole pipeline runs with no GPU. Swapping
+# to a real model later is a one-line change here.
+services:
+  detector: "fake"           # later: "grounding_dino"
+  segmenter: "fake"          # later: "sam2"
+  depth: "fake"              # later: "depth_anything_v2"
+  tracker: "fake"            # later: "cotracker"
+  renderer: "fake"           # later: "homography"
